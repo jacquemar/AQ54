@@ -12,8 +12,6 @@
   - [Docker Compose](#docker-compose)
 - [Endpoints de l'API](#endpoints-de-lapi)
 - [Structure du projet](#structure-du-projet)
-- [Recommandations et amélioration](#recommandations-et-amélioration)
-- [Critères de notation](#critères-de-notation)
 
 ---
 
@@ -86,3 +84,16 @@ L'application permet aux utilisateurs de visualiser ces données sous forme agr�
     ```bash
    docker-compose up 
    ````
+## Endpoints de l'API
+L'API backend en NestJS fournit plusieurs endpoints pour la gestion des capteurs et des utilisateurs.
+
+### Station ( SMART188 & SMART189 )
+GET /stationName/current : Récupérer les dernières valeurs d'une station spécifique.
+GET /stations/${stationName}/alldata?aggregation=${aggregationType}&startDate=${startDate}&endDate=${endDate} : Récupérer les données agrégées (par heure ou par jour) pour un capteur donné, sur une periode donnée.
+GET /stations/monthly-averages : Récupérer les données moyennes mensuelles d'une station spécifique.
+
+POST /auth/inscription : Inscription d'un utilisateur.
+POST /auth/login : Connexion d'un utilisateur.
+
+## Structure du projet 
+AQ54/ ├── dist/ ├── node_modules/ ├── public/ ├── server/ │ ├── dist/ │ ├── node_modules/ │ └── src/ │ ├── airqino.module.ts │ ├── airqino.service.ts │ ├── app.controller.ts │ ├── app.module.ts │ ├── app.service.ts │ ├── database.service.ts │ ├── main.ts │ ├── station.controller.ts ├── src/ │ ├── common/ │ ├── components/ │ ├── css/ │ ├── fonts/ │ ├── hooks/ │ ├── images/ │ ├── layout/ │ ├── pages/ │ ├── types/ │ ├── App.tsx │ ├── main.tsx ├── .env ├── .gitignore ├── nest-cli.json ├── nodemon.json ├── package-lock.json ├── package.json ├── README.md ├── tsconfig.json └── tsconfig.build.json

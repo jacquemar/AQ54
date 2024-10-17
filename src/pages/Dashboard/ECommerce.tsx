@@ -23,7 +23,7 @@ const getLastMonthDateString = () => {
 };
 
 const ECommerce: React.FC = () => {
-  const [sensorData, setSensorData] = useState<SensorData[]>([]); // État pour stocker les données des capteurs
+  const [sensorData, setSensorData] = useState<SensorData[]>([]); 
 
   // Fonction pour récupérer les données mensuelles
   const fetchMonthlyAverages = async () => {
@@ -51,7 +51,7 @@ const ECommerce: React.FC = () => {
           },
           date: getCurrentDateString(),
         }));
-        setSensorData(formattedData); // Met à jour l'état avec les données formatées
+        setSensorData(formattedData);
       } else {
         console.error('Les données ne sont pas au format attendu:', data);
       }
@@ -60,16 +60,15 @@ const ECommerce: React.FC = () => {
     }
   };
 
-  // Appeler la fonction lors du chargement du composant
   useEffect(() => {
     fetchMonthlyAverages();
   }, []);
 
   const formatValue = (value: number | null): string => {
     if (value === null) {
-      return 'N/A'; // ou une chaîne par défaut
+      return 'N/A';
     }
-    return value.toFixed(2); // Formate le nombre avec deux décimales
+    return value.toFixed(2);
   };
   
   
@@ -103,14 +102,14 @@ const ECommerce: React.FC = () => {
               <div key={`last-${index}`} className="min-w-[300px] shrink-0 overflow-hidden">
                 <SensorDataCard
                   title={`${sensor.stationName}`} 
-                  image='https://i.pinimg.com/564x/e3/2d/42/e32d42075d6f4d93bf1a3f27e96d4689.jpg'
-                  extT={formatValue(sensor.lastMonth.extT)} // Utiliser la fonction pour formater les valeurs
+                  image='https://img.freepik.com/photos-gratuite/rayons-soleil-ciel-nuageux_23-2148824930.jpg'
+                  extT={formatValue(sensor.lastMonth.extT)}
                   hr={formatValue(sensor.lastMonth.hr)} 
                   o3={formatValue(sensor.lastMonth.o3)} 
                   no2={formatValue(sensor.lastMonth.no2)} 
                   pm10={formatValue(sensor.lastMonth.pm10)} 
                   pm25={formatValue(sensor.lastMonth.pm25)} 
-                  statusMessage='Le temps est très humide, pensez à vous couvrir'
+                  statusMessage= "l'air est très sec"
                   date={getLastMonthDateString()}
                 />
               </div>
