@@ -13,12 +13,13 @@ const axios_1 = require("@nestjs/axios");
 const station_controller_1 = require("./station.controller");
 const airqino_service_1 = require("./airqino.service");
 const database_service_1 = require("./database.service");
+const users_module_1 = require("./users/users.module");
 let AirqinoModule = class AirqinoModule {
 };
 exports.AirqinoModule = AirqinoModule;
 exports.AirqinoModule = AirqinoModule = __decorate([
     (0, common_1.Module)({
-        imports: [axios_1.HttpModule, config_1.ConfigModule],
+        imports: [axios_1.HttpModule, config_1.ConfigModule, users_module_1.UsersModule],
         controllers: [station_controller_1.StationController],
         providers: [airqino_service_1.AirQinoService, database_service_1.DatabaseService],
     })

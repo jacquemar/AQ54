@@ -46,7 +46,7 @@ let StationController = StationController_1 = class StationController {
             }
         }
         catch (error) {
-            this.logger.error(`Erreur de recuperation de la station ${stationName}: ${error.message}`);
+            this.logger.error(`Erreur de recuperation des données de la station ${stationName}: ${error.message}`);
             throw new common_1.HttpException('echec de recuperation des données', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

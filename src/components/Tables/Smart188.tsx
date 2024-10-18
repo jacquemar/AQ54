@@ -19,7 +19,7 @@ const SMART188: React.FC = () => {
       setDatas(data);
     } catch (error) {
       if (error instanceof Error) { 
-        setError(error.message); 
+        setError("Impossible de récupérer les données depuis le server"); 
       } else {
         setError('Une erreur inconnue est survenue'); 
       }

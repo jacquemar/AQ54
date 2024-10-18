@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
@@ -9,6 +8,8 @@ import ECommerce from './pages/Dashboard/ECommerce';
 import Tables from './pages/Tables';
 import DefaultLayout from './layout/DefaultLayout';
 import SignUp from './pages/Authentication/SignUp';
+import { UserProvider } from './components/UserContext';
+import ProtectedRoute from './pages/Authentication/ProtectedRoute';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -25,12 +26,14 @@ function App() {
   return loading ? (
     <Loader />
   ) : (
+    <UserProvider>
     <Routes>
       {/* Page de connexion sans layout */}
       <Route
         path="/auth/signin"
         element={
           <>
+          
             <PageTitle title="Se connecter | AQ54" />
             <SignIn />
           </>
@@ -52,6 +55,7 @@ function App() {
           index
           element={
             <>
+            <ProtectedRoute />
               <PageTitle title="Dashboard | AQ54" />
               <ECommerce />
             </>
@@ -61,6 +65,7 @@ function App() {
           path="/tables"
           element={
             <>
+            <ProtectedRoute />
               <PageTitle title="Tableaux | AQ54" />
               <Tables />
             </>
@@ -70,6 +75,7 @@ function App() {
           path="/chart"
           element={
             <>
+            <ProtectedRoute />
               <PageTitle title="Basic Chart | AQ54" />
               <Chart />
             </>
@@ -77,6 +83,7 @@ function App() {
         />
       </Route>
     </Routes>
+    </UserProvider>
   );
 }
 

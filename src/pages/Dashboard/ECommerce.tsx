@@ -9,6 +9,18 @@ import Pm25 from '../../components/Charts/Pm25';
 import SensorDataCard from '../../components/SensorDataCard';
 import { SensorData } from '../../types/sensorData';
 import SMART189 from '../../components/Tables/Smart189';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+import {jwtDecode, JwtPayload} from 'jwt-decode';
+
+
+// Définir une interface pour le payload JWT
+interface UserPayload extends JwtPayload {
+
+  username?: string;
+  email?: string;
+}
 
  // Obtenir les dates pour les mois en cours
  const getCurrentDateString = () => {
@@ -22,9 +34,13 @@ const getLastMonthDateString = () => {
   return `${date.getMonth() + 1}/${date.getFullYear()}`; // Format MM/YYYY
 };
 
+
+
 const ECommerce: React.FC = () => {
   const [sensorData, setSensorData] = useState<SensorData[]>([]); 
-
+  const [user, setUser] = useState<UserPayload | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
   // Fonction pour récupérer les données mensuelles
   const fetchMonthlyAverages = async () => {
     try {
@@ -61,8 +77,44 @@ const ECommerce: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchMonthlyAverages();
-  }, []);
+    const checkAuth = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        toast.error("Vous devez être connecté pour accéder à cette page.");
+        setTimeout(() => {
+          navigate("/auth/signin");
+        }, 1000);
+        return;
+      }
+
+      try {
+        const decodedToken = jwtDecode<UserPayload>(token);
+        if (decodedToken.exp && decodedToken.exp * 1000 > Date.now()) {
+          setUser(decodedToken);
+          await fetchMonthlyAverages();
+        } else {
+          logoutUser();
+          toast.error("Votre session a expiré. Veuillez vous reconnecter.")
+        }
+      } catch (error) {
+        console.error('Erreur lors du décodage du token:', error);
+        logoutUser();
+        toast.error("Erreur d'authentification. Veuillez vous reconnecter.")
+      }
+      setIsLoading(false);
+    };
+
+    checkAuth();
+  }, [navigate]);
+
+  const logoutUser = () => {
+    localStorage.removeItem('token');
+    setUser(null);
+    toast.error("Votre session a expiré. Veuillez vous reconnecter.");
+    setTimeout(() => {
+      navigate("/auth/signin");
+    }, 1000);
+  };
 
   const formatValue = (value: number | null): string => {
     if (value === null) {
@@ -76,7 +128,7 @@ const ECommerce: React.FC = () => {
   return (
     <>  
    <div className="flex flex-row gap-4 scrollbar-hide overflow-x-auto md:gap-6 xl:gap-7.5 whitespace-nowrap">
-        
+        <ToastContainer/>
         {sensorData.length > 0 ? (
           <>
           

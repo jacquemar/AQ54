@@ -1,12 +1,49 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp: React.FC = () => {
+
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+
+    try {
+      const response = await axios.post('http://localhost:3000/users/register', {
+        username,
+        email,
+        password
+      });
+
+      if (response.status === 201) {
+        toast.success('Inscription réussie !');
+        // Réinitialiser le formulaire
+        setUsername('');
+        setEmail('');
+        setPassword('');
+      }
+      setTimeout(() => {
+        navigate('/auth/signin'); 
+      }, 3000);
+    } catch (err) {
+      toast.error('vous êtes pas autorisé à effectuer cette action');
+    }
+  };
+
   return (
     <>
       <div className="rounded-sm mt-34 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+      <ToastContainer />
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="py-17.5 px-26 text-center">
@@ -154,12 +191,16 @@ const SignUp: React.FC = () => {
               <form>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Nom
+                    Username
                   </label>
                   <div className="relative">
                     <input
+                      id="username"
                       type="text"
-                      placeholder="Entrez votre nom complet"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                      placeholder="Entrez votre username"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
 
@@ -193,7 +234,11 @@ const SignUp: React.FC = () => {
                   </label>
                   <div className="relative">
                     <input
+                      id="email"
                       type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
                       placeholder="Entrez votre email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
@@ -224,7 +269,11 @@ const SignUp: React.FC = () => {
                   </label>
                   <div className="relative">
                     <input
+                      id="password"
                       type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
                       placeholder="Entrez votre mot de passe"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
@@ -291,6 +340,7 @@ const SignUp: React.FC = () => {
                 <div className="mb-5">
                   <input
                     type="submit"
+                    onClick={handleSubmit}
                     value="Créer mon compte"
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                   />

@@ -38,7 +38,7 @@ export class StationController {
         throw new HttpException('Type non valide', HttpStatus.BAD_REQUEST);
       }
     } catch (error) {
-      this.logger.error(`Erreur de recuperation de la station ${stationName}: ${error.message}`);
+      this.logger.error(`Erreur de recuperation des données de la station ${stationName}: ${error.message}`);
       throw new HttpException('echec de recuperation des données', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }

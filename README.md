@@ -11,7 +11,6 @@
   - [Étapes d'installation](#étapes-dinstallation)
   - [Docker Compose](#docker-compose)
 - [Endpoints de l'API](#endpoints-de-lapi)
-- [Structure du projet](#structure-du-projet)
 
 ---
 
@@ -96,4 +95,57 @@ POST /auth/inscription : Inscription d'un utilisateur.
 POST /auth/login : Connexion d'un utilisateur.
 
 ## Structure du projet 
-AQ54/ ├── dist/ ├── node_modules/ ├── public/ ├── server/ │ ├── dist/ │ ├── node_modules/ │ └── src/ │ ├── airqino.module.ts │ ├── airqino.service.ts │ ├── app.controller.ts │ ├── app.module.ts │ ├── app.service.ts │ ├── database.service.ts │ ├── main.ts │ ├── station.controller.ts ├── src/ │ ├── common/ │ ├── components/ │ ├── css/ │ ├── fonts/ │ ├── hooks/ │ ├── images/ │ ├── layout/ │ ├── pages/ │ ├── types/ │ ├── App.tsx │ ├── main.tsx ├── .env ├── .gitignore ├── nest-cli.json ├── nodemon.json ├── package-lock.json ├── package.json ├── README.md ├── tsconfig.json └── tsconfig.build.json
+
+AQ54/ 
+    ├── dist/ 
+    ├── node_modules/ 
+    ├── public/ 
+    └──  server/ 
+    │ 
+    │    ├── dist/  
+    │    ├── node_modules/ 
+    │    └──  src/ 
+    │    │   ├── airqino.module.ts  
+    │    │   ├── airqino.service.ts  
+    │    │   ├── app.controller.ts  
+    │    │   ├── app.module.ts  
+    │    │   ├── app.service.ts  
+    │    │   ├── database.service.ts  
+    │    │   ├── main.ts  
+    │    │   ├── station.controller.ts 
+    │    ├── test/ 
+    │    ├── .env/ 
+    │    ├── .gitignore 
+    │    ├── nest-cli.json 
+    │    ├── nodemon.json 
+    │    ├── package-lock.json 
+    │    ├── package.json 
+    │    ├── README.md 
+    │    ├── tsconfig.json 
+    │    └── tsconfig.build.json 
+    ├── src/  
+    ├── common/  
+    ├── components/  
+    ├── css/  
+    ├── fonts/  
+    ├── hooks/  
+    ├── images/  
+    ├── layout/  
+    ├── pages/  
+    ├── types/  
+    ├── App.tsx  
+    ├── lib.d.tsx  
+    ├── main.tsx  
+    ├── react-app-env.d.tsx  
+    ├── Dockerfile.dev.tsx  
+    ├── Dockerfile.tsx  
+    ├── index.html.tsx  
+    ├── package.json  
+    ├── package-lock.json  
+    ├── postcss.config.json  
+    ├── README.md  
+    ├── tailwind.json  
+    ├── tsconfig.json  
+    ├── tsconfig.node.json 
+    └── vite.config.js 
+    
