@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import Loader from '../../common/Loader';
-import { useUser } from '../../components/UserContext';
+import { useUser, } from '../../components/UserContext';
 
 const ProtectedRoute: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true);

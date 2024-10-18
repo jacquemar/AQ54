@@ -6,6 +6,7 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import API_URL from '../../../config';
 
 const SignUp: React.FC = () => {
 
@@ -19,7 +20,7 @@ const SignUp: React.FC = () => {
 
 
     try {
-      const response = await axios.post('http://localhost:3000/users/register', {
+      const response = await axios.post(`${API_URL}/users/register`, {
         username,
         email,
         password

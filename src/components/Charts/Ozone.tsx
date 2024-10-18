@@ -3,6 +3,7 @@ import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 import { format, addDays, startOfWeek, endOfWeek, addWeeks, subDays, subWeeks } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import API_URL from '../../../config';
 
 interface DataPoint {
   x: number;
@@ -37,7 +38,7 @@ const OzoneChart: React.FC = () => {
         endDate = format(addWeeks(endOfWeek(currentDate, { weekStartsOn: 1 }), 1), 'yyyy-MM-dd');
       }
       
-      const response = await fetch(`http://localhost:3000/stations/${stationName}/alldata?aggregation=${aggregationType}&startDate=${startDate}&endDate=${endDate}`);
+      const response = await fetch(`${API_URL}/stations/${stationName}/alldata?aggregation=${aggregationType}&startDate=${startDate}&endDate=${endDate}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

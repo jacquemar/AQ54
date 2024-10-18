@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import API_URL from '../../../config';
 
 const SignIn: React.FC = () => {
 
@@ -13,6 +14,7 @@ const SignIn: React.FC = () => {
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(false); 
   const navigate = useNavigate();
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,7 +26,7 @@ const SignIn: React.FC = () => {
   
     try {
       // Envoi des données de connexion à l'API
-      const response = await axios.post('http://localhost:3000/auth/login', { username, password });
+      const response = await axios.post(`${API_URL}/auth/login`, { username, password });
       
       // Vérification de la présence du token dans la réponse
       if (!response.data.access_token) {

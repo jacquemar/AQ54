@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MonthlyData } from '../../types/monthlyData';
 import Loader from '../../common/Loader/index';
+import API_URL from '../../../config';
 
 const SMART189: React.FC = () => {
   const [datas, setDatas] = useState<MonthlyData[]>([]);
@@ -11,7 +12,7 @@ const SMART189: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/stations/current-month?stations=SMART189');
+      const response = await fetch(`${API_URL}/stations/current-month?stations=SMART189`);
       if (!response.ok) {
         throw new Error('Erreur lors de la récupération des données');
       }

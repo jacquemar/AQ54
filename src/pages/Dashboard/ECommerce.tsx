@@ -13,6 +13,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import {jwtDecode, JwtPayload} from 'jwt-decode';
+import API_URL from '../../../config';
 
 
 // Définir une interface pour le payload JWT
@@ -38,13 +39,11 @@ const getLastMonthDateString = () => {
 
 const ECommerce: React.FC = () => {
   const [sensorData, setSensorData] = useState<SensorData[]>([]); 
-  const [user, setUser] = useState<UserPayload | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   // Fonction pour récupérer les données mensuelles
   const fetchMonthlyAverages = async () => {
     try {
-      const response = await fetch('http://localhost:3000/stations/monthly-averages');
+      const response = await fetch(`${API_URL}/stations/monthly-averages`);
       const data = await response.json();
       if (Array.isArray(data)) {
         const formattedData = data.map((item: any) => ({
@@ -90,7 +89,7 @@ const ECommerce: React.FC = () => {
       try {
         const decodedToken = jwtDecode<UserPayload>(token);
         if (decodedToken.exp && decodedToken.exp * 1000 > Date.now()) {
-          setUser(decodedToken);
+        
           await fetchMonthlyAverages();
         } else {
           logoutUser();
@@ -101,7 +100,7 @@ const ECommerce: React.FC = () => {
         logoutUser();
         toast.error("Erreur d'authentification. Veuillez vous reconnecter.")
       }
-      setIsLoading(false);
+
     };
 
     checkAuth();
@@ -109,7 +108,7 @@ const ECommerce: React.FC = () => {
 
   const logoutUser = () => {
     localStorage.removeItem('token');
-    setUser(null);
+
     toast.error("Votre session a expiré. Veuillez vous reconnecter.");
     setTimeout(() => {
       navigate("/auth/signin");

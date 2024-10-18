@@ -69,7 +69,7 @@ L'application permet aux utilisateurs de visualiser ces données sous forme agr�
    npm install
    cd server && npm run start:dev
    ````
-4. Configurez les variables d'environnement pour le backend (server/.env)
+4. Configurez les variables d'environnement pour le backend (server/.env) & DOCKERFILE
     ```bash
    DATABASE_URL=postgres://username:password@hostname:port/dbname
    JWT_SECRET=votre_secret_jwt
@@ -91,7 +91,7 @@ GET /stationName/current : Récupérer les dernières valeurs d'une station spé
 GET /stations/${stationName}/alldata?aggregation=${aggregationType}&startDate=${startDate}&endDate=${endDate} : Récupérer les données agrégées (par heure ou par jour) pour un capteur donné, sur une periode donnée.
 GET /stations/monthly-averages : Récupérer les données moyennes mensuelles d'une station spécifique.
 
-POST /auth/inscription : Inscription d'un utilisateur.
+POST /auth/auth : Inscription d'un utilisateur.
 POST /auth/login : Connexion d'un utilisateur.
 
 ## Structure du projet 
@@ -136,6 +136,7 @@ AQ54/
     ├── App.tsx  
     ├── lib.d.tsx  
     ├── main.tsx  
+    ├── config.tsx  
     ├── react-app-env.d.tsx  
     ├── Dockerfile.dev.tsx  
     ├── Dockerfile.tsx  

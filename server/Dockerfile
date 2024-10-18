@@ -1,35 +1,17 @@
-# Étape 1 : Build de l'application
-FROM node:18-alpine AS builder
-
+FROM node:18-alpine
+RUN apk add --no-cache make gcc g++ python3
 WORKDIR /app
 
-# Copier uniquement les fichiers nécessaires
-COPY package*.json ./
-COPY tsconfig*.json ./
+COPY package.json ./
+RUN npm install
 
-# Installer les dépendances
-RUN npm install --only=production
-
-# Copier le reste du code source
 COPY . .
 
-# Construire l'application
-RUN npm run build
+RUN npm rebuild bcrypt
 
-# Étape 2 : Exécuter l'application
-FROM node:18-alpine AS runner
+ENV PORT=3000
 
-WORKDIR /app
-
-# Copier les fichiers de build depuis l'étape précédente
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package*.json ./
-
-# Installer uniquement les dépendances de production
-RUN npm install --only=production
-
-# Exposer le port 3000 pour l'application
 EXPOSE 3000
 
 # Lancer l'application en mode production
-CMD ["node", "dist/main"]
+CMD ["npm", "run", "start"]
