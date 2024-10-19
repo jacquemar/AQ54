@@ -9,8 +9,6 @@ COPY . .
 
 RUN npm rebuild bcrypt
 
-ENV PORT=3000
-
 EXPOSE 3000
 
 # Lancer l'application en mode production

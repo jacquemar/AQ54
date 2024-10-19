@@ -1,0 +1,30 @@
+
+services:
+  client:
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    ports:
+      - '4173:4173'
+    environment:
+      - REACT_APP_API_URL=http://localhost:3000
+    depends_on:
+      - server
+    networks:
+      - app-network
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3000:3000'
+    environment:
+      - DATABASE_URL=postgresql://StationData_owner:Nez6W7gCudmS@ep-autumn-recipe-a4wcnxhh.us-east-1.aws.neon.tech/StationData?sslmode=require
+      - JWT_SECRET=f0edb323f2f685e75731756f0379807827848a1efa7634925032e43e476b8cb5
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
